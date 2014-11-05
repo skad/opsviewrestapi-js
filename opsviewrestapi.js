@@ -40,7 +40,7 @@ Object.prototype.clone = function() {
 /**
  * Add a has function to Arrays
  * Allows you to quickly check if v key exists in an array.
- */ 
+ */
 Array.prototype.has=function(v){
 	for (var j=0;j<this.length;j++){
 		if (this[j]==v) return true;
@@ -56,7 +56,7 @@ Array.prototype.has=function(v){
  * @version 1.0
  */
 
-opsviewrestapi = function(o){
+opsviewrestapi = function(host,port){
 
 	that = this;
 	/**
@@ -64,10 +64,10 @@ opsviewrestapi = function(o){
 	 */
 	this.config  = {
 		'server': {
-			'host': "localhost",
+			'host': host,
 			'user': "admin",
 			'pass': "initial",
-			'port': 3000
+			'port': port
 		}
 	};
 	/**
@@ -270,7 +270,7 @@ opsviewrestapi = function(o){
 				'request': {}
 			}
 		}
-	
+
 	}
 
 	/**
@@ -420,7 +420,7 @@ opsviewrestapi = function(o){
 		api.request = params;
 		that.__request__(api,function(data){callback(data)});
 	};
-	
+
 	this.status.host = function(params,callback){
 		var api = new that.api('status/host')
 		api.ops = params;
@@ -428,7 +428,7 @@ opsviewrestapi = function(o){
 	};
 	/**
 	 * Encode the apiObj.request to an urlencoded GET request
-	 * 
+	 *
 	 * @param object apiObj.request
 	 * @private
 	 */
