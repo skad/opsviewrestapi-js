@@ -298,47 +298,43 @@ opsviewrestapi = function(host,port){
 		this.method = this.__api__.method;
 		this.ops = this.__api__.request;
 		if (this.__api__.methods.has("GET")){
-			this.get = function(callback){
+			this.get = function(callback,callbackerror){
 				var reqApi = {};
 				reqApi.url = this.url;
 				reqApi.request = this.ops;
 				reqApi.method = "GET";
-				that.__request__(reqApi,function(data){
-					callback(data);
-					});
+				that.__request__(reqApi,callback,callbackerror);
+					
 			};
 		}
 		if (this.__api__.methods.has("POST")){
-			this.post = function(callback){
+			this.post = function(callback,callbackerror){
 				var reqApi = {};
 				reqApi.url = this.url;
 				reqApi.request = this.ops;
 				reqApi.method = "POST";
-				that.__request__(reqApi,function(data){
-					callback(data);
-					});
+				that.__request__(reqApi,callback,callbackerror);
+					
 			};
 		}
 		if (this.__api__.methods.has("PUT")){
-			this.put = function(callback){
+			this.put = function(callback,callbackerror){
 				var reqApi = {};
 				reqApi.url = this.url;
 				reqApi.request = this.ops;
 				reqApi.method = "PUT";
-				that.__request__(reqApi,function(data){
-					callback(data);
-					});
+				that.__request__(reqApi,callback,callbackerror);
+					
 			};
 		}
 		if (this.__api__.methods.has("DELETE")){
-			this.delete = function(callback){
+			this.delete = function(callback,callbackerror){
 				var reqApi = {};
 				reqApi.url = this.url;
 				reqApi.request = this.ops;
 				reqApi.method = "DELETE";
-				that.__request__(reqApi,function(data){
-					callback(data);
-					});
+				that.__request__(reqApi,callback,callbackerror);
+					
 			};
 		}
 	};
