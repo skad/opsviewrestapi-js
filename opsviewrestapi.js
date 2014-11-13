@@ -406,7 +406,7 @@ opsviewrestapi = function(host,port){
 			that.vars.headers['X-Opsview-Username'] = that.config.user;
 			that.vars.headers['X-Opsview-Token'] = that.vars.token;
 			c(data);
-		},function(xhr,textStatus){errorCallback(xhr,textStatus);});
+		},errorCallback);
 	};
 
 	this.status = {};
