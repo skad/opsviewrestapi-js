@@ -41,9 +41,9 @@ Object.prototype.clone = function() {
  * Add a has function to Arrays
  * Allows you to quickly check if v key exists in an array.
  */
-Array.prototype.has=function(v){
-	for (var j=0;j<this.length;j++){
-		if (this[j]==v) return true;
+Array.prototype.has = function (v) {
+	for (var j = 0; j < this.length; j++) {
+		if (this[j] == v) return true;
 	}
 	return false;
 }
@@ -56,13 +56,13 @@ Array.prototype.has=function(v){
  * @version 1.0
  */
 
-opsviewrestapi = function(host,port){
+opsviewrestapi = function (host, port) {
 
 	that = this;
 	/**
 	 * Common configuration parameters
 	 */
-	this.config  = {
+	this.config = {
 		'server': {
 			'host': host,
 			'user': "admin",
@@ -75,198 +75,198 @@ opsviewrestapi = function(host,port){
 	 * @todo: use this.
 	 */
 	this.settings = {
-		'timeout' : 5,
-		'minVersion' : 3.013002
+		'timeout': 5,
+		'minVersion': 3.013002
 	}
 	/**
 	 * stores common variables like the headers to be sent
 	 */
 	this.vars = {
-		'headers' : {},
-		'token' : ""
+		'headers': {},
+		'token': ""
 	}
 
 	/**
 	 * All available opsview REST API calls
 	 */
 	this.apis = {
-		'version' : {
-			'url' : '/rest',
-			'method' : 'GET',
-			'methods' : ['GET'],
-			'request' : {}
+		'version': {
+			'url': '/rest',
+			'method': 'GET',
+			'methods': ['GET'],
+			'request': {}
 		},
-		'info' : {
-			'url' : '/rest/info',
-			'method' : 'GET',
-			'methods' : ['GET'],
-			'request' : {}
+		'info': {
+			'url': '/rest/info',
+			'method': 'GET',
+			'methods': ['GET'],
+			'request': {}
 		},
-		'reload' : {
-			'url' : '/rest/reload',
-			'method' : 'GET',
-			'methods' : ['GET','POST'],
-			'request' : {}
+		'reload': {
+			'url': '/rest/reload',
+			'method': 'GET',
+			'methods': ['GET', 'POST'],
+			'request': {}
 		},
-		'serverinfo' : {
-			'url' : '/rest/serverinfo',
-			'method' : 'GET',
-			'methods' : ['GET'],
-			'request' : {}
+		'serverinfo': {
+			'url': '/rest/serverinfo',
+			'method': 'GET',
+			'methods': ['GET'],
+			'request': {}
 		},
-		'login' : {
-			'url' : '/rest/login?request_onetime_token=1&another_test=test&another_test=tet',
+		'login': {
+			'url': '/rest/login?request_onetime_token=1&another_test=test&another_test=tet',
 			'method': 'POST',
-			'methods' : ['POST'],
+			'methods': ['POST'],
 			'request': {}
 		},
-		'event' : {
-			'url' : '/rest/event',
-			'method' : 'GET',
-			'methods' : ['GET'],
-			'request': {}
-		},
-		'downtime' : {
-			'url' : '/rest/hostgroup',
+		'event': {
+			'url': '/rest/event',
 			'method': 'GET',
-			'methods' : ['GET','POST','DELETE'],
+			'methods': ['GET'],
 			'request': {}
 		},
-		'acknowledge' : {
-			'url' : '/rest/acknowledge',
+		'downtime': {
+			'url': '/rest/hostgroup',
 			'method': 'GET',
-			'methods' : ['GET','POST'],
+			'methods': ['GET', 'POST', 'DELETE'],
 			'request': {}
 		},
-		'recheck' : {
-			'url' : '/rest/recheck',
+		'acknowledge': {
+			'url': '/rest/acknowledge',
 			'method': 'GET',
-			'methods' : ['GET','POST'],
+			'methods': ['GET', 'POST'],
 			'request': {}
 		},
-		'graph' : {
-			'url' : '/rest/graph',
+		'recheck': {
+			'url': '/rest/recheck',
 			'method': 'GET',
-			'methods' : ['GET'],
+			'methods': ['GET', 'POST'],
 			'request': {}
 		},
-		'config' : {
-			'host' : {
-				'url' : '/rest/config/host/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'contact' : {
-				'url' : '/rest/config/contact/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'role' : {
-				'url' : '/rest/config/role/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'servicecheck' : {
-				'url' : '/rest/config/servicecheck/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'hosttemplate' : {
-				'url' : '/rest/config/hosttemplate/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'attribute' : {
-				'url' : '/rest/config/attribute/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'timeperiod' : {
-				'url' : '/rest/config/timeperiod/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'hostgroup' : {
-				'url' : '/rest/config/hostgroup/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'servicegroup' : {
-				'url' : '/rest/config/servicegroup/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'notificationmethod' : {
-				'url' : '/rest/config/notificationmethod/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'hostcheckcommand' : {
-				'url' : '/rest/config/hostcheckcommand/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'keyword' : {
-				'url' : '/rest/config/keyword/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			},
-			'monitoringservers' : {
-				'url' : '/rest/config/monitoringserver/',
-				'method' : 'GET',
-				'methods' : ['GET','POST','PUT','DELETE'],
-				'request' : {}
-			}
+		'graph': {
+			'url': '/rest/graph',
+			'method': 'GET',
+			'methods': ['GET'],
+			'request': {}
 		},
-		'runtime' : {
-			'service' : {
-				'url' : '/rest/runtime/service',
+		'config': {
+			'host': {
+				'url': '/rest/config/host/',
 				'method': 'GET',
-				'methods' : ['GET'],
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
 				'request': {}
 			},
-			'performancemetric' : {
-				'url' : '/rest/runtime/performancemetric',
+			'contact': {
+				'url': '/rest/config/contact/',
 				'method': 'GET',
-				'methods' : ['GET'],
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'role': {
+				'url': '/rest/config/role/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'servicecheck': {
+				'url': '/rest/config/servicecheck/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'hosttemplate': {
+				'url': '/rest/config/hosttemplate/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'attribute': {
+				'url': '/rest/config/attribute/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'timeperiod': {
+				'url': '/rest/config/timeperiod/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'hostgroup': {
+				'url': '/rest/config/hostgroup/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'servicegroup': {
+				'url': '/rest/config/servicegroup/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'notificationmethod': {
+				'url': '/rest/config/notificationmethod/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'hostcheckcommand': {
+				'url': '/rest/config/hostcheckcommand/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'keyword': {
+				'url': '/rest/config/keyword/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+				'request': {}
+			},
+			'monitoringservers': {
+				'url': '/rest/config/monitoringserver/',
+				'method': 'GET',
+				'methods': ['GET', 'POST', 'PUT', 'DELETE'],
 				'request': {}
 			}
 		},
-		'status' : {
-			'hostgroup' : {
-				'url' : '/rest/status/hostgroup',
+		'runtime': {
+			'service': {
+				'url': '/rest/runtime/service',
 				'method': 'GET',
-				'methods' : ['GET'],
+				'methods': ['GET'],
 				'request': {}
 			},
-			'host' : {
-				'url' : '/rest/status/host',
+			'performancemetric': {
+				'url': '/rest/runtime/performancemetric',
 				'method': 'GET',
-				'methods' : ['GET'],
+				'methods': ['GET'],
+				'request': {}
+			}
+		},
+		'status': {
+			'hostgroup': {
+				'url': '/rest/status/hostgroup',
+				'method': 'GET',
+				'methods': ['GET'],
 				'request': {}
 			},
-			'service' : {
-				'url' : '/rest/status/service',
+			'host': {
+				'url': '/rest/status/host',
 				'method': 'GET',
-				'methods' : ['GET'],
+				'methods': ['GET'],
 				'request': {}
 			},
-			'viewport' : {
-				'url' : '/rest/status/viewport',
+			'service': {
+				'url': '/rest/status/service',
 				'method': 'GET',
-				'methods' : ['GET'],
+				'methods': ['GET'],
+				'request': {}
+			},
+			'viewport': {
+				'url': '/rest/status/viewport',
+				'method': 'GET',
+				'methods': ['GET'],
 				'request': {}
 			}
 		}
@@ -281,15 +281,15 @@ opsviewrestapi = function(host,port){
 	 * 				 for ex. 'config/host'
 	 *
 	 */
-	this.api = function(url){
+	this.api = function (url) {
 		var apiArr = url.split('/');
 		var myapi = that.apis;
-		for (i in apiArr){
-			if (typeof apiArr[i] != "undefined" && typeof myapi[apiArr[i]] != "undefined"){
+		for (i in apiArr) {
+			if (typeof apiArr[i] != "undefined" && typeof myapi[apiArr[i]] != "undefined") {
 				myapi = myapi[apiArr[i]];
 			}
 		}
-		if (typeof myapi.url == "undefined"){
+		if (typeof myapi.url == "undefined") {
 			console.error('no such api known: ' + url);
 			return false;
 		}
@@ -297,44 +297,44 @@ opsviewrestapi = function(host,port){
 		this.url = this.__api__.url;
 		this.method = this.__api__.method;
 		this.ops = this.__api__.request;
-		if (this.__api__.methods.has("GET")){
-			this.get = function(callback,callbackerror){
+		if (this.__api__.methods.has("GET")) {
+			this.get = function (callback, callbackerror) {
 				var reqApi = {};
 				reqApi.url = this.url;
 				reqApi.request = this.ops;
 				reqApi.method = "GET";
-				that.__request__(reqApi,callback,callbackerror);
-					
+				that.__request__(reqApi, callback, callbackerror);
+
 			};
 		}
-		if (this.__api__.methods.has("POST")){
-			this.post = function(callback,callbackerror){
+		if (this.__api__.methods.has("POST")) {
+			this.post = function (callback, callbackerror) {
 				var reqApi = {};
 				reqApi.url = this.url;
 				reqApi.request = this.ops;
 				reqApi.method = "POST";
-				that.__request__(reqApi,callback,callbackerror);
-					
+				that.__request__(reqApi, callback, callbackerror);
+
 			};
 		}
-		if (this.__api__.methods.has("PUT")){
-			this.put = function(callback,callbackerror){
+		if (this.__api__.methods.has("PUT")) {
+			this.put = function (callback, callbackerror) {
 				var reqApi = {};
 				reqApi.url = this.url;
 				reqApi.request = this.ops;
 				reqApi.method = "PUT";
-				that.__request__(reqApi,callback,callbackerror);
-					
+				that.__request__(reqApi, callback, callbackerror);
+
 			};
 		}
-		if (this.__api__.methods.has("DELETE")){
-			this.delete = function(callback,callbackerror){
+		if (this.__api__.methods.has("DELETE")) {
+			this.delete = function (callback, callbackerror) {
 				var reqApi = {};
 				reqApi.url = this.url;
 				reqApi.request = this.ops;
 				reqApi.method = "DELETE";
-				that.__request__(reqApi,callback,callbackerror);
-					
+				that.__request__(reqApi, callback, callbackerror);
+
 			};
 		}
 	};
@@ -342,7 +342,7 @@ opsviewrestapi = function(host,port){
 	 * The main error handler
 	 * called by this.__request__::$.ajax on failure
 	 */
-	this.errorHandler = function(jqHXR,textStatus,apiObj){
+	this.errorHandler = function (jqHXR, textStatus, apiObj) {
 		alert('error:' + textStatus);
 		console.log(jqXHR);
 		console.log('http://' + that.config.server.host + ":" + that.config.server.port + apiObj.url);
@@ -353,26 +353,26 @@ opsviewrestapi = function(host,port){
 	 * this MUST be the same host as from where you are running this js)
 	 * @param int port: server port (see notice above)
 	 */
-	this.server = function(host,port){
+	this.server = function (host, port) {
 		that.config.server.host = host;
-		that.config.server.port = (typeof(port) != "undefined")? port: that.config.server.port;
+		that.config.server.port = (typeof (port) != "undefined") ? port : that.config.server.port;
 		return that.config.server;
 	}
 	/**
 	 * RESTProxy.php support - tunnel all requests trough a local php script
 	 * @param string location: location of the RESTProxy.php script
 	 */
-	 this.proxy = function(location){
-	 	that.vars.headers['x-RESTProxy-Host'] = that.config.server.host;
-	 	that.vars.headers['x-RESTProxy-Port'] = that.config.server.port;
-	 	that.config.server.useProxy = location;
-	 }
+	this.proxy = function (location) {
+		that.vars.headers['x-RESTProxy-Host'] = that.config.server.host;
+		that.vars.headers['x-RESTProxy-Port'] = that.config.server.port;
+		that.config.server.useProxy = location;
+	}
 
 	/**
 	 * @todo: implement a check version;
 	 */
-	this.checkVersion = function() {
-	/*	var api = that.apis.version;
+	this.checkVersion = function () {
+		/*	var api = that.apis.version;
 		that.__request__(api,function(data){
 			if (data.api_version < that.settings.minVersion){
 				console.log("Api version is to low on server.")
@@ -382,8 +382,8 @@ opsviewrestapi = function(host,port){
 			}
 		});
 	*/
-	//TODO: Version check
-	return true;
+		//TODO: Version check
+		return true;
 	}
 	/**
 	 * The initial authentication
@@ -392,35 +392,41 @@ opsviewrestapi = function(host,port){
 	 *
 	 * Sets the approriate headers
 	 */
-	this.authenticate = function(user,pass,callback,errorCallback) {
+	this.authenticate = function (user, pass, callback, errorCallback) {
 		errorCallback = (typeof errorCallback == "undefined") ? that.errorHandler : errorCallback;
 
-		c = (typeof callback == "undefined")? function(data){return true;} : callback;
+		c = (typeof callback == "undefined") ? function (data) {
+			return true;
+		} : callback;
 		that.config.user = user;
 		that.config.pass = pass;
 		var api = that.apis.login;
 		api.request.username = user;
 		api.request.password = pass;
-		that.__request__(api,function(data){
+		that.__request__(api, function (data) {
 			that.vars.token = data.token;
 			that.vars.headers['X-Opsview-Username'] = that.config.user;
 			that.vars.headers['X-Opsview-Token'] = that.vars.token;
 			c(data);
-		},errorCallback);
+		}, errorCallback);
 	};
 
 	this.status = {};
 
-	this.status.hostgroup = function(params,callback){
+	this.status.hostgroup = function (params, callback) {
 		var api = new api('status/hostgroup')
 		api.request = params;
-		that.__request__(api,function(data){callback(data)});
+		that.__request__(api, function (data) {
+			callback(data)
+		});
 	};
 
-	this.status.host = function(params,callback){
+	this.status.host = function (params, callback) {
 		var api = new that.api('status/host')
 		api.ops = params;
-		that.__request__(api,function(data){callback(data)});
+		that.__request__(api, function (data) {
+			callback(data)
+		});
 	};
 	/**
 	 * Encode the apiObj.request to an urlencoded GET request
@@ -428,31 +434,36 @@ opsviewrestapi = function(host,port){
 	 * @param object apiObj.request
 	 * @private
 	 */
-	this.urlEncodeObject = function(obj){
-	 var url = ""
-	 for (i in obj) {
-	 	// of the opt content is an array,
-	 	// loop trough the array and set
-	 	// the opt multiple times vor each
-	 	// array content.
-	 	// ex. cols=host_name&cols=hostgroup&...
-	 	if ( obj[i] instanceof Array){
-	 		for (a in obj[i]){
-	 			if (typeof obj[i][a] == "string"){
-		 			if (url != ""){
-		 				url += "&";
-		 			}
-	 				url += i + "=" + escape(obj[i][a]).replace(/\+/g,'%2B').replace(/%20/g, '+').replace(/\*/g, '%2A').replace(/\//g, '%2F').replace(/@/g, '%40');
-	 			}
-	 		}
-	 	} if (typeof obj[i] == "string"){
-	 		if (url != ""){
-	 				url += "&";
-	 			}
-	 			url += i + "=" + escape(obj[i]).replace(/\+/g,'%2B').replace(/%20/g, '+').replace(/\*/g, '%2A').replace(/\//g, '%2F').replace(/@/g, '%40');
-	 	}
-	 }
-	 return url;
+	this.urlEncodeObject = function (obj) {
+		var url = ""
+		if (typeof obj == "string") {
+			url += obj;
+		} else {
+			for (i in obj) {
+				// of the opt content is an array,
+				// loop trough the array and set
+				// the opt multiple times vor each
+				// array content.
+				// ex. cols=host_name&cols=hostgroup&...
+				if (obj[i] instanceof Array) {
+					for (a in obj[i]) {
+						if (typeof obj[i][a] == "string") {
+							if (url != "") {
+								url += "&";
+							}
+							url += i + "=" + escape(obj[i][a]).replace(/\+/g, '%2B').replace(/%20/g, '+').replace(/\*/g, '%2A').replace(/\//g, '%2F').replace(/@/g, '%40');
+						}
+					}
+				}
+				if (typeof obj[i] == "string") {
+					if (url != "") {
+						url += "&";
+					}
+					url += i + "=" + escape(obj[i]).replace(/\+/g, '%2B').replace(/%20/g, '+').replace(/\*/g, '%2A').replace(/\//g, '%2F').replace(/@/g, '%40');
+				}
+			}
+		}
+		return url;
 	}
 	/**
 	 * The main request function
@@ -460,41 +471,47 @@ opsviewrestapi = function(host,port){
 	 * @param function callback
 	 *
 	 */
-	this.__request__ = function(apiObj,callback,errorCallback){
+	this.__request__ = function (apiObj, callback, errorCallback) {
 		/**
 		 * Include the headers
 		 * @param object xhr: the xhr transfer object
 		 * @private
 		 */
-		function setHeaders(xhr){
+		function setHeaders(xhr) {
 			xhr.setRequestHeader("Accept", "application/json");
 			xhr.setRequestHeader("Content-Type", "application/json");
-			for (header in that.vars.headers){
-				if (typeof that.vars.headers[header] != "undefined"){
+			for (header in that.vars.headers) {
+				if (typeof that.vars.headers[header] != "undefined") {
 					//console.log('setting header: ' + header);
-					xhr.setRequestHeader(header,that.vars.headers[header]);
+					xhr.setRequestHeader(header, that.vars.headers[header]);
 				}
 			}
 		}
-		var data = (apiObj.method == "GET")? that.urlEncodeObject(apiObj.request) : JSON.stringify(apiObj.request);
-		var url = (typeof that.config.server.useProxy == "undefined")?'http://' + that.config.server.host + apiObj.url : that.config.server.useProxy + apiObj.url;
+
+		var url = (typeof that.config.server.useProxy == "undefined") ? 'http://' + that.config.server.host + apiObj.url : that.config.server.useProxy + apiObj.url;
+		var data = null;
+		if (apiObj.method != "GET" && apiObj.method != "DELETE") {
+			data = JSON.stringify(apiObj.request);
+		} else {
+			url += that.urlEncodeObject(apiObj.request);
+		}
 		$.ajax({
-			url:url,
-			type:apiObj.method,
-			data:data,
-	 		contentType:"application/json",
-			dataType:"json",
-			beforeSend: function(xhr){
+			url: url,
+			type: apiObj.method,
+			data: data,
+			contentType: "application/json",
+			dataType: "json",
+			beforeSend: function (xhr) {
 				setHeaders(xhr);
 			},
-			error: function(xhr,textStatus){
-				if (typeof errorCallback == "undefined"){
-					that.errorHandler(xhr,textStatus,apiObj);
+			error: function (xhr, textStatus) {
+				if (typeof errorCallback == "undefined") {
+					that.errorHandler(xhr, textStatus, apiObj);
 				} else {
-					errorCallback(xhr,textStatus);
+					errorCallback(xhr, textStatus);
 				}
 			},
-			success: function(r,textStatus,xhr){
+			success: function (r, textStatus, xhr) {
 				r.status = {};
 				r.status.readyState = xhr.readyState;
 				r.status.status = xhr.status;
