@@ -56,7 +56,7 @@ Array.prototype.has = function (v) {
  * @version 1.0
  */
 
-opsviewrestapi = function (host, port) {
+opsviewrestapi = function (host, port, https) {
 
 	that = this;
 	/**
@@ -67,7 +67,8 @@ opsviewrestapi = function (host, port) {
 			'host': host,
 			'user': "admin",
 			'pass': "initial",
-			'port': port
+			'port': port,
+			'https': https,
 		}
 	};
 	/**
@@ -352,10 +353,12 @@ opsviewrestapi = function (host, port) {
 	 * @param string server: server name (since cross-domain calls is forbidden in most browsers,
 	 * this MUST be the same host as from where you are running this js)
 	 * @param int port: server port (see notice above)
+	 * @param bool https: use SSL
 	 */
-	this.server = function (host, port) {
+	this.server = function (host, port, https) {
 		that.config.server.host = host;
 		that.config.server.port = (typeof (port) != "undefined") ? port : that.config.server.port;
+		that.config.server.https = https;
 		return that.config.server;
 	}
 	/**
@@ -365,6 +368,7 @@ opsviewrestapi = function (host, port) {
 	this.proxy = function (location) {
 		that.vars.headers['x-RESTProxy-Host'] = that.config.server.host;
 		that.vars.headers['x-RESTProxy-Port'] = that.config.server.port;
+		that.vars.headers['x-RESTProxy-HTTPS'] = that.config.server.https;
 		that.config.server.useProxy = location;
 	}
 
@@ -488,7 +492,7 @@ opsviewrestapi = function (host, port) {
 			}
 		}
 
-		var url = (typeof that.config.server.useProxy == "undefined") ? 'http://' + that.config.server.host + apiObj.url : that.config.server.useProxy + apiObj.url;
+		var url = (typeof that.config.server.useProxy == "undefined") ? (that.config.server.https ? 'https://' : 'http://') + that.config.server.host + apiObj.url : that.config.server.useProxy + apiObj.url;
 		var data = null;
 		if (apiObj.method != "GET" && apiObj.method != "DELETE") {
 			data = JSON.stringify(apiObj.request);
